@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VMware 9.1 | Licenciamiento, Arquitectura y Sizing</title>
-  <title>VMware Cloud Foundation 9.1 | VMware Vsphere Foundation 9.1</title>
+  <title>VMware Cloud Foundation 9.1 | VMware vSphere Foundation 9.1</title>
   <style>
     :root {
       --primary-color: #00008B; /* Azul VMware */
@@ -33,6 +32,49 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+    }
+
+    /* Menú Superior Global */
+    .top-nav {
+      background-color: var(--secondary-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .top-nav ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .top-nav li {
+      margin: 0;
+    }
+
+    .top-nav a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .top-nav a:hover,
+    .top-nav a.active {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .top-nav a.active {
+      border-bottom: 3px solid var(--badge-vcf);
     }
 
     /* Header */
@@ -76,10 +118,10 @@
       gap: 2rem;
     }
 
-    /* Navegación lateral */
-    nav {
+    /* Navegación lateral de la página */
+    .side-nav {
       position: sticky;
-      top: 2rem;
+      top: 4.5rem;
       height: fit-content;
       background: var(--card-bg);
       border-radius: 8px;
@@ -87,7 +129,7 @@
       border: 1px solid var(--border-color);
     }
 
-    nav h3 {
+    .side-nav h3 {
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -95,15 +137,16 @@
       margin-bottom: 1rem;
     }
 
-    nav ul {
+    .side-nav ul {
       list-style: none;
+      padding-left: 0;
     }
 
-    nav li {
+    .side-nav li {
       margin-bottom: 0.75rem;
     }
 
-    nav a {
+    .side-nav a {
       color: var(--text-color);
       text-decoration: none;
       font-weight: 500;
@@ -113,7 +156,7 @@
       transition: background 0.2s, color 0.2s;
     }
 
-    nav a:hover {
+    .side-nav a:hover {
       background: #e0f2fe;
       color: var(--primary-color);
     }
@@ -310,12 +353,12 @@
       margin-bottom: 0.5rem;
     }
 
-    ul {
+    main ul {
       padding-left: 1.25rem;
       margin-bottom: 1rem;
     }
 
-    li {
+    main li {
       margin-bottom: 0.5rem;
     }
 
@@ -336,14 +379,30 @@
         grid-template-columns: 1fr;
       }
 
-      nav {
+      .side-nav {
         position: relative;
         top: 0;
+      }
+
+      .top-nav a {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- Menú de Inicio Superior Global -->
+  <nav class="top-nav">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+      <li><a href="vmware.html" class="active">VMware</a></li>
+    </ul>
+  </nav>
 
   <header>
     <h1>VMware</h1>
@@ -352,7 +411,8 @@
   </header>
 
   <div class="container">
-    <nav>
+    <!-- Navegación lateral interna -->
+    <nav class="side-nav">
       <h3>Navegación</h3>
       <ul>
         <li><a href="#licenciamiento">Modelo de Licenciamiento</a></li>
@@ -369,7 +429,7 @@
       <!-- SECCIÓN 1: MODELO DE LICENCIAMIENTO -->
       <section id="licenciamiento" class="card">
         <h2>¿Cómo se Licencia VMware?</h2>
-        <p>El portafolio de VMware opera bajo un **modelo de suscripción basado en Cores**. Se eliminan las licencias perpetuas y el modelo por socket tradicional.</p>
+        <p>El portafolio de VMware opera bajo un <strong>modelo de suscripción basado en Cores</strong>. Se eliminan las licencias perpetuas y el modelo por socket tradicional.</p>
         
         <div class="callout">
           <div class="callout-title">Regla de Cálculo de Cores</div>
@@ -506,7 +566,7 @@
                 <td class="check">✓ (Suite Completo)</td>
               </tr>
               <tr>
-                <td><strong>Kubernets (VKS)</strong></td>
+                <td><strong>Kubernetes (VKS)</strong></td>
                 <td class="check">✓ (Básico)</td>
                 <td class="check">✓ (Avanzado)</td>
               </tr>
@@ -566,82 +626,59 @@
   </footer>
 
   <!-- SCRIPT INTERACTIVO CALCULADORA DE LICENCIAMIENTO -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const inputServers = document.getElementById('num-servers');
-    const inputSockets = document.getElementById('num-sockets');
-    const inputCores = document.getElementById('num-cores');
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputServers = document.getElementById('num-servers');
+      const inputSockets = document.getElementById('num-sockets');
+      const inputCores = document.getElementById('num-cores');
 
-    const resPhysicalCores = document.getElementById('res-physical-cores');
-    const resLicensedCores = document.getElementById('res-licensed-cores');
-    const resRuleNote = document.getElementById('res-rule-note');
-    const resVsanVvf = document.getElementById('res-vsan-vvf');
-    const resVsanVcf = document.getElementById('res-vsan-vcf');
+      const resPhysicalCores = document.getElementById('res-physical-cores');
+      const resLicensedCores = document.getElementById('res-licensed-cores');
+      const resRuleNote = document.getElementById('res-rule-note');
+      const resVsanVvf = document.getElementById('res-vsan-vvf');
+      const resVsanVcf = document.getElementById('res-vsan-vcf');
 
-    function calculateLicensing() {
-      const servers = Math.max(1, parseInt(inputServers.value) || 0);
-      const sockets = Math.max(1, parseInt(inputSockets.value) || 0);
-      const coresPerSocket = Math.max(1, parseInt(inputCores.value) || 0);
+      function calculateLicensing() {
+        const servers = Math.max(1, parseInt(inputServers.value) || 0);
+        const sockets = Math.max(1, parseInt(inputSockets.value) || 0);
+        const coresPerSocket = Math.max(1, parseInt(inputCores.value) || 0);
 
-      // Cores físicos reales
-      const totalPhysicalCores = servers * sockets * coresPerSocket;
+        // Cores físicos reales
+        const totalPhysicalCores = servers * sockets * coresPerSocket;
 
-      // Regla de mínimo 16 cores por socket
-      const effectiveCoresPerSocket = Math.max(16, coresPerSocket);
-      const totalLicensedCores = servers * sockets * effectiveCoresPerSocket;
-      // Mínimo comercial de venta: 72 cores
-      const coresForSale = Math.max(72, totalLicensedCores);
+        // Regla de mínimo 16 cores por socket
+        const effectiveCoresPerSocket = Math.max(16, coresPerSocket);
+        const totalLicensedCores = servers * sockets * effectiveCoresPerSocket;
+        
+        // Mínimo comercial de venta: 72 cores
+        const coresForSale = Math.max(72, totalLicensedCores);
 
-      // ==========================================
-      // CÁLCULO DE vSAN VVF
-      // 0.25 TiB por core licenciado
-      // ==========================================
-      const vsanVvfTiB = totalLicensedCores * 0.25;
+        // Cálculos de vSAN
+        const vsanVvfTiB = totalLicensedCores * 0.25;
+        const vsanVcfTiB = totalLicensedCores;
 
-      // ==========================================
-      // CÁLCULO DE vSAN VCF
-      // 1 TiB por core licenciado
-      // ==========================================
-      const vsanVcfTiB = totalLicensedCores;
+        // Actualización en DOM
+        resPhysicalCores.textContent = totalPhysicalCores.toLocaleString();
+        resLicensedCores.textContent = coresForSale.toLocaleString();
 
-      // Actualización en DOM
-      resPhysicalCores.textContent =
-        totalPhysicalCores.toLocaleString();
+        if (coresPerSocket < 16) {
+          resRuleNote.textContent = `Aplica regla mín. 16 cores/socket (ajustado de ${coresPerSocket} a 16)`;
+          resRuleNote.style.color = '#eab308';
+        } else {
+          resRuleNote.textContent = 'Cumple con el mínimo de 16 cores por socket';
+          resRuleNote.style.color = 'var(--text-muted)';
+        }
 
-      resLicensedCores.textContent =
-        totalLicensedCores.toLocaleString();
-      
-      resLicensedCores.textContent = 
-        coresForSale.toLocaleString();
-
-      if (coresPerSocket < 16) {
-        resRuleNote.textContent =
-          `Aplica regla mín. 16 cores/socket (ajustado de ${coresPerSocket} a 16)`;
-
-        resRuleNote.style.color = '#eab308';
-      } else {
-        resRuleNote.textContent =
-          'Cumple con el mínimo de 16 cores por socket';
-
-        resRuleNote.style.color = 'var(--text-muted)';
+        resVsanVvf.textContent = `${vsanVvfTiB.toFixed(1)} TiB`;
+        resVsanVcf.textContent = `${vsanVcfTiB.toLocaleString()} TiB`;
       }
 
-      // Mostrar VVF
-      resVsanVvf.textContent =
-        `${vsanVvfTiB.toFixed(1)} TiB`;
+      inputServers.addEventListener('input', calculateLicensing);
+      inputSockets.addEventListener('input', calculateLicensing);
+      inputCores.addEventListener('input', calculateLicensing);
 
-      // Mostrar VCF
-      resVsanVcf.textContent =
-        `${vsanVcfTiB.toLocaleString()} TiB`;
-    }
-
-    inputServers.addEventListener('input', calculateLicensing);
-    inputSockets.addEventListener('input', calculateLicensing);
-    inputCores.addEventListener('input', calculateLicensing);
-
-    // Ejecución inicial
-    calculateLicensing();
-  });
-</script>
+      calculateLicensing();
+    });
+  </script>
 </body>
 </html>
