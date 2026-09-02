@@ -3,50 +3,418 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre Mi </title>
+  <title>Sobre mí | Consultoría de Arquitectura de TI</title>
   <style>
     :root {
-      --primary-color: #0072ce;
-      --secondary-color: #0f172a;
+      --primary-color: #00008B; /* Azul Principal */
+      --secondary-color: #0f172a; /* Slate Oscuro */
+      --accent-color: #2563eb;
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
       --text-color: #1e293b;
+      --text-muted: #64748b;
       --border-color: #e2e8f0;
+      --badge-vcf: #0284c7;
+      --badge-vvf: #0d9488;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
-    
-    .top-nav { background-color: var(--secondary-color); padding: 0.75rem 2rem; }
-    .top-nav ul { list-style: none; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-    .top-nav a { color: #94a3b8; text-decoration: none; font-weight: 600; }
-    .top-nav a:hover, .top-nav a.active { color: #ffffff; }
 
-    main { max-width: 900px; margin: 3rem auto; padding: 0 1rem; width: 100%; flex: 1; }
-    .card { background: var(--card-bg); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); }
-    h1 { color: var(--secondary-color); margin-bottom: 1rem; }
-    footer { text-align: center; padding: 1.5rem; color: #64748b; border-top: 1px solid var(--border-color); background: var(--card-bg); }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Verdana', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Menú Superior Global */
+    .top-nav {
+      background-color: var(--secondary-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .top-nav ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .top-nav li {
+      margin: 0;
+    }
+
+    .top-nav a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .top-nav a:hover,
+    .top-nav a.active {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .top-nav a.active {
+      border-bottom: 3px solid var(--badge-vcf);
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0284c7, var(--primary-color));
+      color: white;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .subtitle-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Layout principal */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
+
+    /* Navegación lateral de la página */
+    .side-nav {
+      position: sticky;
+      top: 4.5rem;
+      height: fit-content;
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .side-nav h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .side-nav ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .side-nav li {
+      margin-bottom: 0.75rem;
+    }
+
+    .side-nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .side-nav a:hover {
+      background: #e0f2fe;
+      color: var(--primary-color);
+    }
+
+    /* Contenido */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card h2 {
+      color: var(--secondary-color);
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+
+    .card h3 {
+      color: var(--primary-color);
+      margin: 1.2rem 0 0.5rem 0;
+    }
+
+    /* Grids personalizados */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .skill-card {
+      background: #f8fafc;
+      padding: 1.2rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .skill-card h4 {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      background: #e2e8f0;
+      color: var(--secondary-color);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    main ul {
+      padding-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    main li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Timeline de experiencia */
+    .timeline-item {
+      padding-left: 1rem;
+      border-left: 3px solid var(--badge-vcf);
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline-item h4 {
+      color: var(--secondary-color);
+      font-size: 1.1rem;
+    }
+
+    .timeline-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      margin-top: auto;
+    }
+
+    /* Responsivo */
+    @media (max-width: 850px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .side-nav {
+        position: relative;
+        top: 0;
+      }
+
+      .top-nav a {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Menú de Inicio Superior Global -->
   <nav class="top-nav">
     <ul>
-      <li><a href="index.html" class="active">Inicio</a></li>
-      <li><a href="sobre-mi.html">Sobre mí</a></li>
-      <li><a href="proyectos.html">Mis Proyectos</a></li>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html" class="active">Sobre mí</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
       <li><a href="contacto.html">Contacto</a></li>
       <li><a href="vmware.html">VMware</a></li>
     </ul>
   </nav>
 
-  <main>
-    <div class="card">
-      <h1>Bienvenido a la Plataforma</h1>
-      <p>Selecciona una opción en el menú superior para explorar el contenido, proyectos o consultar la guía técnica y calculadora de licenciamiento de VMware.</p>
-    </div>
-  </main>
+  <header>
+    <h1>Sobre Mí</h1>
+    <p>Consultor Preventa Técnico y Arquitecto de Soluciones de Infraestructura Cloud</p>
+    <span class="subtitle-tag">Enterprise Cloud & Networking Platform</span>
+  </header>
+
+  <div class="container">
+    <!-- Navegación lateral interna de la página -->
+    <nav class="side-nav">
+      <h3>Secciones</h3>
+      <ul>
+        <li><a href="#perfil">Perfil Profesional</a></li>
+        <li><a href="#especialidades">Especialidades</a></li>
+        <li><a href="#experiencia">Enfoque Preventa</a></li>
+        <li><a href="#certificaciones">Ecosistema Tecnológico</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <!-- SECCIÓN 1: PERFIL PROFESIONAL -->
+      <section id="perfil" class="card">
+        <h2>Perfil Profesional</h2>
+        <p>Especialista en arquitectura de infraestructura de centros de datos, virtualización de cómputo y redes empresariales. Con un perfil fuertemente enfocado en la <strong>preventa técnica y arquitectura de soluciones</strong>, acompaño a las organizaciones en el dimensionamiento, evaluación técnica y definición del mapa de ruta para la modernización de sus centros de datos.</p>
+        <p style="margin-top: 0.8rem;">Mi trabajo conecta el análisis comercial y los requerimientos del cliente con la ingeniería de detalle, garantizando diseños optimizados bajo modelos de licenciamiento por cores, esquemas de alta disponibilidad y arquitecturas multicloud.</p>
+      </section>
+
+      <!-- SECCIÓN 2: ESPECIALIDADES -->
+      <section id="especialidades" class="card">
+        <h2>Áreas de Especialización</h2>
+        <div class="grid-2">
+
+          <div class="skill-card">
+            <h4>Infraestructura Cloud & SDDC</h4>
+            <p>Diseño y sizing de soluciones Cloud Foundation (VCF) y vSphere Foundation (VVF). Configuración de dominios de gestión y cargas de trabajo (VI Workload Domains).</p>
+            <div class="tag-container">
+              <span class="tag">VMware VCF</span>
+              <span class="tag">VVF</span>
+              <span class="tag">vSAN</span>
+              <span class="tag">SDDC</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Redes y Monitoreo Empresarial</h4>
+            <p>Implementación de plataformas de visibilidad de red, análisis de tráfico y respuesta ante detecciones de amenazas en infraestructuras híbridas.</p>
+            <div class="tag-container">
+              <span class="tag">Arista CloudVision</span>
+              <span class="tag">DMF</span>
+              <span class="tag">NDR</span>
+              <span class="tag">NSX</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Digital Workspace & VDI</h4>
+            <p>Virtualización de escritorios y gestión unificada de puntos finales para entornos corporativos seguros y distribuidos.</p>
+            <div class="tag-container">
+              <span class="tag">Omnissa Horizon 8</span>
+              <span class="tag">Workspace ONE</span>
+              <span class="tag">UEM</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h4>Auditoría y Automatización</h4>
+            <p>Evaluación de infraestructura mediante scripting automatizado para determinar consumo de cores, uso de almacenamiento y auditorías de licenciamiento.</p>
+            <div class="tag-container">
+              <span class="tag">PowerShell</span>
+              <span class="tag">PowerCLI</span>
+              <span class="tag">Sizing Tooling</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: ENFOQUE PREVENTA -->
+      <section id="experiencia" class="card">
+        <h2>Metodología de Trabajo Preventa</h2>
+        
+        <div class="timeline-item">
+          <h4>1. Discovery y Levantamiento de Información</h4>
+          <div class="timeline-date">Fase Inicial</div>
+          <p>Análisis detallado de la infraestructura actual, recopilación de métricas de rendimiento y ejecución de scripts de recolección para dimensionar el inventario de cores y almacenamiento actual.</p>
+        </div>
+
+        <div class="timeline-item">
+          <h4>2. Arquitectura de Solución y Sizing</h4>
+          <div class="timeline-date">Diseño Técnico</div>
+          <p>Definición del dimensionamiento de hardware (compute, memoria, almacenamiento vSAN) considerando tolerancias a fallos (N+1/N+2), factores de consolidación vCPU:pCore y aplicación rigurosa de las reglas de licenciamiento del fabricante.</p>
+        </div>
+
+        <div class="timeline-item">
+          <h4>3. Validación Técnica y Habilitación de Canales</h4>
+          <div class="timeline-date">Acompañamiento Estratégico</div>
+          <p>Presentación de propuestas técnicas, desarrollo de pruebas de concepto (PoC), soporte en licitaciones (pliegos/RFPs) y sesiones de habilitación técnica para socios de negocio y clientes finales.</p>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: ECOSISTEMA TECNOLÓGICO -->
+      <section id="certificaciones" class="card">
+        <h2>Ecosistema Tecnológico</h2>
+        <p>Trabajo activamente con las tecnologías líderes de la industria de infraestructura física y virtualizada:</p>
+        <ul>
+          <li><strong>Virtualización y Cloud:</strong> Broadcom VMware (VCF 9.x, VVF, vSphere Enterprise Plus, vCenter Server, vSAN).</li>
+          <li><strong>Orquestación y Operaciones:</strong> SDDC Manager, Aria Operations / VCF Operations.</li>
+          <li><strong>Redes y Seguridad:</strong> Arista Networks (CloudVision, DANZ Monitoring Fabric, Network Detection and Response), VMware NSX.</li>
+          <li><strong>EUC (End-User Computing):</strong> Omnissa Horizon 8, Workspace ONE UEM.</li>
+          <li><strong>Scripting & Management:</strong> PowerShell CLI, VMware PowerCLI.</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
 
   <footer>
-    <p>&copy; 2026 Alojado en GitHub Pages</p>
+    <p>&copy; 2026 Referencia Técnica & Perfil Profesional - Alojado en GitHub Pages</p>
   </footer>
+
 </body>
 </html>
