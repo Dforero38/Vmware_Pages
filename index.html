@@ -3,27 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio | Portal Técnico</title>
+  <title>Inicio | Portal Técnico & Arquitectura Cloud</title>
   <style>
     :root {
-          --primary-color: #00008B; /* Azul Principal */
-          --secondary-color: #0f172a; /* Slate Oscuro */
-          --accent-color: #2563eb;
-          --bg-color: #f8fafc;
-          --card-bg: #ffffff;
-          --text-color: #1e293b;
-          --text-muted: #64748b;
-          --border-color: #e2e8f0;
-          --badge-vcf: #0284c7;
-          --badge-vvf: #0d9488;
-        }
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
+      --primary-color: #00008B; /* Azul Principal */
+      --secondary-color: #0f172a; /* Slate Oscuro */
+      --accent-color: #2563eb;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --badge-vcf: #0284c7;
+      --badge-vvf: #0d9488;
     }
-    body { 
-    <!-- font-family: system-ui, -apple-system, sans-serif; -->
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Verdana', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
@@ -32,38 +33,339 @@
       flex-direction: column;
       min-height: 100vh;
     }
-    
-    .top-nav { background-color: var(--secondary-color); padding: 0.75rem 2rem; }
-    .top-nav ul { list-style: none; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-    .top-nav a { color: #94a3b8; text-decoration: none; font-weight: 600; }
-    .top-nav a:hover, .top-nav a.active { color: #ffffff; }
 
-    main { max-width: 900px; margin: 3rem auto; padding: 0 1rem; width: 100%; flex: 1; }
-    .card { background: var(--card-bg); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); }
-    h1 { color: var(--secondary-color); margin-bottom: 1rem; }
-    footer { text-align: center; padding: 1.5rem; color: #64748b; border-top: 1px solid var(--border-color); background: var(--card-bg); }
+    /* Menú Superior Global */
+    .top-nav {
+      background-color: var(--secondary-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .top-nav ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .top-nav li {
+      margin: 0;
+    }
+
+    .top-nav a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .top-nav a:hover,
+    .top-nav a.active {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .top-nav a.active {
+      border-bottom: 3px solid var(--badge-vcf);
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0284c7, var(--primary-color));
+      color: white;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .subtitle-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Layout principal */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
+
+    /* Navegación lateral de la página */
+    .side-nav {
+      position: sticky;
+      top: 4.5rem;
+      height: fit-content;
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .side-nav h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .side-nav ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .side-nav li {
+      margin-bottom: 0.75rem;
+    }
+
+    .side-nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .side-nav a:hover {
+      background: #e0f2fe;
+      color: var(--primary-color);
+    }
+
+    /* Contenido */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card h2 {
+      color: var(--secondary-color);
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+
+    .card h3 {
+      color: var(--primary-color);
+      margin: 1.2rem 0 0.5rem 0;
+    }
+
+    /* Grids personalizados para accesos directos */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .portal-card {
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .portal-card:hover {
+      border-color: var(--badge-vcf);
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.1);
+    }
+
+    .portal-card h4 {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .portal-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .btn-link {
+      display: inline-block;
+      background-color: var(--badge-vcf);
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+
+    .btn-link:hover {
+      background-color: var(--primary-color);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      margin-top: auto;
+    }
+
+    /* Responsivo */
+    @media (max-width: 850px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .side-nav {
+        position: relative;
+        top: 0;
+      }
+
+      .top-nav a {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Menú de Inicio Superior Global -->
   <nav class="top-nav">
     <ul>
       <li><a href="index.html" class="active">Inicio</a></li>
       <li><a href="sobre-mi.html">Sobre mí</a></li>
-      <li><a href="proyectos.html">Mis Proyectos</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
       <li><a href="contacto.html">Contacto</a></li>
       <li><a href="vmware.html">VMware</a></li>
     </ul>
   </nav>
 
-  <main>
-    <div class="card">
-      <h1>Bienvenido a la Plataforma</h1>
-      <p>Selecciona una opción en el menú superior para explorar el contenido, proyectos o consultar la guía técnica y calculadora de licenciamiento de VMware.</p>
-    </div>
-  </main>
+  <header>
+    <h1>Portal de Arquitectura & Infraestructura TI</h1>
+    <p>Centro de referencia técnica, recursos de virtualización y herramientas preventa</p>
+    <span class="subtitle-tag">Enterprise Cloud Solutions</span>
+  </header>
+
+  <div class="container">
+    <!-- Navegación lateral interna de la página -->
+    <nav class="side-nav">
+      <h3>Acceso Rápido</h3>
+      <ul>
+        <li><a href="#bienvenida">Bienvenida</a></li>
+        <li><a href="#modulos">Módulos Principales</a></li>
+        <li><a href="#recursos">Recursos y Herramientas</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <!-- SECCIÓN 1: BIENVENIDA -->
+      <section id="bienvenida" class="card">
+        <h2>Bienvenido a la Plataforma</h2>
+        <p>Este espacio está diseñado para centralizar recursos técnicos, guías de arquitectura y metodologías de dimensionamiento enfocadas en soluciones de infraestructura para centros de datos, entornos multicloud y redes empresariales.</p>
+        <p style="margin-top: 0.8rem;">Utiliza el menú superior o las secciones a continuación para explorar el perfil profesional, proyectos en ejecución o la calculadora técnica de licenciamiento.</p>
+      </section>
+
+      <!-- SECCIÓN 2: MÓDULOS PRINCIPALES -->
+      <section id="modulos" class="card">
+        <h2>Módulos del Portal</h2>
+        <div class="grid-2">
+
+          <div class="portal-card">
+            <div>
+              <h4>Perfil & Especialización</h4>
+              <p>Conoce la trayectoria en consultoría preventa, áreas de cobertura técnica y enfoque metodológico para soluciones de centro de datos.</p>
+            </div>
+            <a href="sobre-mi.html" class="btn-link">Ver Sobre Mí</a>
+          </div>
+
+          <div class="portal-card">
+            <div>
+              <h4>Centro VMware & Sizing</h4>
+              <p>Accede a la guía técnica de migración VCF/VVF, reglas de licenciamiento por cores y la calculadora interactiva de recursos.</p>
+            </div>
+            <a href="vmware.html" class="btn-link">Ir a VMware</a>
+          </div>
+
+          <div class="portal-card">
+            <div>
+              <h4>Proyectos & Casos de Uso</h4>
+              <p>Revisa iniciativas activas, diseño de arquitecturas SDDC, integración de redes Arista y soluciones de Workspace Digital.</p>
+            </div>
+            <a href="proyectos.html" class="btn-link">Explorar Proyectos</a>
+          </div>
+
+          <div class="portal-card">
+            <div>
+              <h4>Contacto & Consultoría</h4>
+              <p>Inicia una solicitud de acompañamiento técnico para análisis de inventarios, sizing de hardware o revisión de pliegos/RFPs.</p>
+            </div>
+            <a href="contacto.html" class="btn-link">Ir a Contacto</a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: RECURSOS Y HERRAMIENTAS -->
+      <section id="recursos" class="card">
+        <h2>Áreas Destacadas de Arquitectura</h2>
+        <ul style="padding-left: 1.25rem;">
+          <li style="margin-bottom: 0.5rem;"><strong>Sizing y Licenciamiento:</strong> Evaluación de métricas de procesamiento por núcleos (cores) bajo esquemas VMware Cloud Foundation (VCF) y vSphere Foundation (VVF).</li>
+          <li style="margin-bottom: 0.5rem;"><strong>Monitoreo y Redes:</strong> Plataformas de visibilidad, análisis de tráfico y detección con Arista CloudVision, DMF y NDR.</li>
+          <li style="margin-bottom: 0.5rem;"><strong>End-User Computing:</strong> Soluciones de virtualización de escritorios y gestión unificada de dispositivos con Omnissa Horizon 8 y Workspace ONE.</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
 
   <footer>
-    <p>&copy; 2026 Alojado en GitHub Pages</p>
+    <p>&copy; 2026 Referencia Técnica & Perfil Profesional - Alojado en GitHub Pages</p>
   </footer>
+
 </body>
 </html>
