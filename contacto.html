@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Consultoría e Infraestructura TI</title>
+  <style>
+    :root {
+      --primary-color: #00008B; /* Azul Principal */
+      --secondary-color: #0f172a; /* Slate Oscuro */
+      --accent-color: #2563eb;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --badge-vcf: #0284c7;
+      --badge-vvf: #0d9488;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Verdana', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Menú Superior Global */
+    .top-nav {
+      background-color: var(--secondary-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .top-nav ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .top-nav li {
+      margin: 0;
+    }
+
+    .top-nav a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .top-nav a:hover,
+    .top-nav a.active {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .top-nav a.active {
+      border-bottom: 3px solid var(--badge-vcf);
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0284c7, var(--primary-color));
+      color: white;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .subtitle-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Layout principal */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
+
+    /* Navegación lateral de la página */
+    .side-nav {
+      position: sticky;
+      top: 4.5rem;
+      height: fit-content;
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .side-nav h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .side-nav ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .side-nav li {
+      margin-bottom: 0.75rem;
+    }
+
+    .side-nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .side-nav a:hover {
+      background: #e0f2fe;
+      color: var(--primary-color);
+    }
+
+    /* Contenido */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card h2 {
+      color: var(--secondary-color);
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+
+    /* Estilos del Formulario */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.7rem 0.9rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 114, 206, 0.15);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .btn-submit {
+      background-color: var(--badge-vcf);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      align-self: flex-start;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-color);
+    }
+
+    /* Info Cards Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .info-card {
+      background: #f8fafc;
+      padding: 1.2rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .info-card h4 {
+      color: var(--secondary-color);
+      margin-bottom: 0.4rem;
+      font-size: 1rem;
+    }
+
+    .info-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      margin-top: auto;
+    }
+
+    /* Responsivo */
+    @media (max-width: 850px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .side-nav {
+        position: relative;
+        top: 0;
+      }
+
+      .top-nav a {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+      }
+
+      .btn-submit {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menú de Inicio Superior Global -->
+  <nav class="top-nav">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="contacto.html" class="active">Contacto</a></li>
+      <li><a href="vmware.html">VMware</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Contacto & Consultoría</h1>
+    <p>Inicia la conversación sobre la arquitectura y modernización de tu centro de datos</p>
+    <span class="subtitle-tag">Soporte Preventa & Asesoría Técnica</span>
+  </header>
+
+  <div class="container">
+    <!-- Navegación lateral interna de la página -->
+    <nav class="side-nav">
+      <h3>Secciones</h3>
+      <ul>
+        <li><a href="#formulario">Enviar Mensaje</a></li>
+        <li><a href="#canales">Canales Directos</a></li>
+        <li><a href="#cobertura">Alcance de Consultoría</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <!-- SECCIÓN 1: FORMULARIO DE CONTACTO -->
+      <section id="formulario" class="card">
+        <h2>Solicitud de Acompañamiento Técnico</h2>
+        <p style="margin-bottom: 1.5rem;">Completa el siguiente formulario para coordinar una sesión de revisión de arquitectura, dimensionamiento de licenciamiento o acompañamiento preventa.</p>
+
+        <form class="contact-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Mensaje enviado correctamente.');">
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Nombre Completo *</label>
+              <input type="text" id="nombre" name="nombre" required placeholder="Ej. Carlos Pérez">
+            </div>
+
+            <div class="form-group">
+              <label for="empresa">Empresa / Organización *</label>
+              <input type="text" id="empresa" name="empresa" required placeholder="Ej. Empresa S.A.S.">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="email">Correo Electrónico Corporativo *</label>
+              <input type="email" id="email" name="email" required placeholder="nombre@empresa.com">
+            </div>
+
+            <div class="form-group">
+              <label for="tipo-solicitud">Tipo de Solicitud *</label>
+              <select id="tipo-solicitud" name="tipo-solicitud" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value=" sizing">Sizing y Licenciamiento VMware (VCF/VVF)</option>
+                <option value="redes">Redes y Monitoreo (Arista / NSX)</option>
+                <option value="euc">Digital Workspace (Horizon / Workspace ONE)</option>
+                <option value="rfp">Revisión de Pliegos / Términos de Referencia (RFP)</option>
+                <option value="otro">Otra consulta técnica</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mensaje">Detalles del Requerimiento *</label>
+            <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Describe brevemente la cantidad de servidores, objetivo del proyecto o tiempos estimados de ejecución..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Enviar Solicitud</button>
+        </form>
+      </section>
+
+      <!-- SECCIÓN 2: CANALES DIRECTOS -->
+      <section id="canales" class="card">
+        <h2>Canales de Atención</h2>
+        <p>Acompañamiento especializado para canales de distribución, integradores y clientes corporativos.</p>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <h4>Ubicación Principal</h4>
+            <p>Bogotá, Colombia (Atención regional y proyectos a nivel nacional)</p>
+          </div>
+
+          <div class="info-card">
+            <h4>Enfoque Comercial</h4>
+            <p>Soporte de Preventa, Certificación de Canales y Sesiones de Arquitectura</p>
+          </div>
+
+          <div class="info-card">
+            <h4>Tiempo de Respuesta</h4>
+            <p>Menos de 24 horas hábiles para requerimientos de sizing y soporte técnico.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: ALCANCE DE CONSULTORÍA -->
+      <section id="cobertura" class="card">
+        <h2>Servicios Preventa Disponibles</h2>
+        <ul style="padding-left: 1.25rem;">
+          <li style="margin-bottom: 0.5rem;"><strong>Auditoría de Cores:</strong> Ejecución y análisis de scripts de inventario para cálculo exacto de métricas de licenciamiento bajo esquema Broadcom.</li>
+          <li style="margin-bottom: 0.5rem;"><strong>Sizing Multicloud:</strong> Definición de clústeres de cómputo, vSAN Slack Space y topología de red NSX / Arista.</li>
+          <li style="margin-bottom: 0.5rem;"><strong>Validación RFP:</strong> Acompañamiento en el cumplimiento técnico de pliegos y respuestas en licitaciones públicas y privadas.</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Referencia Técnica & Perfil Profesional - Alojado en GitHub Pages</p>
+  </footer>
+
+</body>
+</html>
