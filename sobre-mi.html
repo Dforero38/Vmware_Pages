@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Sitio</title>
-    <link rel="stylesheet" href="../styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre Mi </title>
+  <style>
+    :root {
+      --primary-color: #0072ce;
+      --secondary-color: #0f172a;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --border-color: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg-color); color: var(--text-color); display: flex; flex-direction: column; min-height: 100vh; }
+    
+    .top-nav { background-color: var(--secondary-color); padding: 0.75rem 2rem; }
+    .top-nav ul { list-style: none; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .top-nav a { color: #94a3b8; text-decoration: none; font-weight: 600; }
+    .top-nav a:hover, .top-nav a.active { color: #ffffff; }
+
+    main { max-width: 900px; margin: 3rem auto; padding: 0 1rem; width: 100%; flex: 1; }
+    .card { background: var(--card-bg); padding: 2rem; border-radius: 8px; border: 1px solid var(--border-color); }
+    h1 { color: var(--secondary-color); margin-bottom: 1rem; }
+    footer { text-align: center; padding: 1.5rem; color: #64748b; border-top: 1px solid var(--border-color); background: var(--card-bg); }
+  </style>
 </head>
 <body>
+  <nav class="top-nav">
+    <ul>
+      <li><a href="index.html" class="active">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html">Mis Proyectos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+      <li><a href="vmware.html">VMware</a></li>
+    </ul>
+  </nav>
 
-    <header>
-        <nav>
-            <ul>
-               <li><a href="index.html">Inicio</a></li>
-               <li><a href="sobre-mi.html">Sobre mí</a></li>
-                <li><a href="proyectos.html">Mis Proyectos</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="vmware.html" class="active">VMware</a></li>
-            </ul>
-        </nav>
-    </header>
+  <main>
+    <div class="card">
+      <h1>Bienvenido a la Plataforma</h1>
+      <p>Selecciona una opción en el menú superior para explorar el contenido, proyectos o consultar la guía técnica y calculadora de licenciamiento de VMware.</p>
+    </div>
+  </main>
 
-    <main>
-        <h1>Primer Tema Especializado</h1>
-        <p>Escribe aquí todo lo referente a este tema en particular.</p>
-    </main>
-
+  <footer>
+    <p>&copy; 2026 Alojado en GitHub Pages</p>
+  </footer>
 </body>
 </html>
