@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VMware Cloud Foundation 9.1 | Licenciamiento, Arquitectura y Sizing</title>
+  <title>VMware 9.1 | Licenciamiento, Arquitectura y Sizing</title>
+  <title>VMware Cloud Foundation 9.1 | VMware Vsphere Foundation 9.1</title>
   <style>
     :root {
-      --primary-color: #0072ce;
-      --secondary-color: #0f172a;
+      --primary-color: #00008B; /* Azul VMware */
+      --secondary-color: #0f172a; /* Slate Oscuro */
       --accent-color: #2563eb;
       --bg-color: #f8fafc;
       --card-bg: #ffffff;
@@ -25,39 +26,13 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Verdana', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
       line-height: 1.6;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-    }
-
-    /* Menú Superior Global */
-    .top-nav {
-      background-color: var(--secondary-color);
-      padding: 0.75rem 2rem;
-    }
-
-    .top-nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .top-nav a {
-      color: #94a3b8;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-
-    .top-nav a:hover, .top-nav a.active {
-      color: #ffffff;
     }
 
     /* Header */
@@ -102,7 +77,7 @@
     }
 
     /* Navegación lateral */
-    nav.side-nav {
+    nav {
       position: sticky;
       top: 2rem;
       height: fit-content;
@@ -112,7 +87,7 @@
       border: 1px solid var(--border-color);
     }
 
-    nav.side-nav h3 {
+    nav h3 {
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -120,15 +95,15 @@
       margin-bottom: 1rem;
     }
 
-    nav.side-nav ul {
+    nav ul {
       list-style: none;
     }
 
-    nav.side-nav li {
+    nav li {
       margin-bottom: 0.75rem;
     }
 
-    nav.side-nav a {
+    nav a {
       color: var(--text-color);
       text-decoration: none;
       font-weight: 500;
@@ -138,7 +113,7 @@
       transition: background 0.2s, color 0.2s;
     }
 
-    nav.side-nav a:hover {
+    nav a:hover {
       background: #e0f2fe;
       color: var(--primary-color);
     }
@@ -171,7 +146,7 @@
       margin: 1.2rem 0 0.5rem 0;
     }
 
-    /* Estilos de la Calculadora */
+    /* Estilos de la Calculadora de Licenciamiento */
     .calculator-container {
       background: #f8fafc;
       border: 1px solid var(--border-color);
@@ -335,12 +310,12 @@
       margin-bottom: 0.5rem;
     }
 
-    ul.req-list {
+    ul {
       padding-left: 1.25rem;
       margin-bottom: 1rem;
     }
 
-    ul.req-list li {
+    li {
       margin-bottom: 0.5rem;
     }
 
@@ -361,7 +336,7 @@
         grid-template-columns: 1fr;
       }
 
-      nav.side-nav {
+      nav {
         position: relative;
         top: 0;
       }
@@ -370,27 +345,15 @@
 </head>
 <body>
 
-  <!-- Navegación Principal -->
-  <nav class="top-nav">
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="sobre-mi.html">Sobre mí</a></li>
-      <li><a href="proyectos.html">Mis Proyectos</a></li>
-      <li><a href="contacto.html">Contacto</a></li>
-      <li><a href="vmware.html" class="active">VMware</a></li>
-    </ul>
-  </nav>
-
   <header>
-    <h1>VMware Cloud & Datacenter Solutions</h1>
+    <h1>VMware</h1>
     <p>Licenciamiento por Cores, Arquitectura, Sizing y Calculadora de Suscripciones (VCF vs VVF)</p>
     <span class="version-tag">Broadcom Reference Architecture</span>
   </header>
 
   <div class="container">
-    <!-- Submenú lateral interno de VMware -->
-    <nav class="side-nav">
-      <h3>Secciones VMware</h3>
+    <nav>
+      <h3>Navegación</h3>
       <ul>
         <li><a href="#licenciamiento">Modelo de Licenciamiento</a></li>
         <li><a href="#calculadora">Calculadora Interactiva</a></li>
@@ -406,7 +369,7 @@
       <!-- SECCIÓN 1: MODELO DE LICENCIAMIENTO -->
       <section id="licenciamiento" class="card">
         <h2>¿Cómo se Licencia VMware?</h2>
-        <p>El portafolio de VMware opera bajo un <strong>modelo de suscripción basado en Cores</strong>. Se eliminan las licencias perpetuas y el modelo por socket tradicional.</p>
+        <p>El portafolio de VMware opera bajo un **modelo de suscripción basado en Cores**. Se eliminan las licencias perpetuas y el modelo por socket tradicional.</p>
         
         <div class="callout">
           <div class="callout-title">Regla de Cálculo de Cores</div>
@@ -457,7 +420,7 @@
             <div class="res-box">
               <span class="res-label">Almacenamiento vSAN (VVF)</span>
               <span class="res-value" id="res-vsan-vvf" style="color: #0d9488;">12.5 TiB</span>
-              <span class="res-subtext">Incluido (100 GiB / core)</span>
+              <span class="res-subtext">Incluido (0,25 TiB / core)</span>
             </div>
 
             <div class="res-box">
@@ -479,11 +442,11 @@
             <span class="badge-vvf">VVF</span>
             <h3 style="margin-top: 0.5rem; color: var(--secondary-color);">VMware vSphere Foundation</h3>
             <p><strong>Enfoque:</strong> Solución de virtualización de cómputo para centros de datos tradicionales que requieren gestión centralizada y operaciones básicas.</p>
-            <ul style="margin-top: 0.8rem; padding-left: 1.25rem;">
+            <ul style="margin-top: 0.8rem;">
               <li>vSphere Enterprise Plus</li>
-              <li>vCenter Server Standard</li>
-              <li>Aria Operations & Aria Operations for Logs</li>
-              <li>Derecho a vSAN (100 GiB por core suscrito)</li>
+              <li>vCenter Server </li>
+              <li>VCF Operations </li>
+              <li>Derecho a vSAN (0,25 TiB por core suscrito)</li>
             </ul>
           </div>
 
@@ -491,12 +454,12 @@
             <span class="badge-vcf">VCF</span>
             <h3 style="margin-top: 0.5rem; color: var(--secondary-color);">VMware Cloud Foundation</h3>
             <p><strong>Enfoque:</strong> Plataforma completa de Software-Defined Data Center (SDDC) para nube privada e híbrida con automatización avanzada.</p>
-            <ul style="margin-top: 0.8rem; padding-left: 1.25rem;">
+            <ul style="margin-top: 0.8rem;">
               <li>Todo lo incluido en VVF</li>
               <li>SDDC Manager (Orquestación LCM)</li>
               <li>vSAN Enterprise (1 TiB por core suscrito)</li>
               <li>NSX Enterprise / Advanced Network & Security</li>
-              <li>Aria Suite completo & Tanzu Kubernetes Grid</li>
+              <li>VCF Operations Suite completa </li>
             </ul>
           </div>
         </div>
@@ -524,12 +487,12 @@
               </tr>
               <tr>
                 <td><strong>Almacenamiento vSAN Incluido</strong></td>
-                <td>100 GiB / Core</td>
+                <td>0,25 TiB / Core</td>
                 <td>1 TiB / Core (Enterprise)</td>
               </tr>
               <tr>
                 <td><strong>Redes y Seguridad NSX</strong></td>
-                <td class="cross">Opcional (Add-on)</td>
+                <td class="cross">x</td>
                 <td class="check">✓ Integrado</td>
               </tr>
               <tr>
@@ -538,12 +501,12 @@
                 <td class="check">✓</td>
               </tr>
               <tr>
-                <td><strong>Aria Operations / Logs</strong></td>
+                <td><strong>VCF Operations / Logs</strong></td>
                 <td class="check">✓ (Básico)</td>
                 <td class="check">✓ (Suite Completo)</td>
               </tr>
               <tr>
-                <td><strong>Tanzu Kubernetes Grid (TKG)</strong></td>
+                <td><strong>Kubernets (VKS)</strong></td>
                 <td class="check">✓ (Básico)</td>
                 <td class="check">✓ (Avanzado)</td>
               </tr>
@@ -576,7 +539,7 @@
         <div class="req-grid">
           <div class="req-box">
             <h4>Requisitos para Management Domain (VCF)</h4>
-            <ul class="req-list">
+            <ul>
               <li><strong>Mínimo de Nodos:</strong> 4 hosts ESXi dedicados.</li>
               <li><strong>RAM por Host:</strong> Mínimo 256 GB (512 GB recomendado).</li>
               <li><strong>Red:</strong> Mínimo 2 puertos de 10GbE / 25GbE por host.</li>
@@ -586,7 +549,7 @@
 
           <div class="req-box">
             <h4>Criterios de Sizing para Cargas</h4>
-            <ul class="req-list">
+            <ul>
               <li><strong>Factor N+1 / N+2:</strong> Reservar capacidad de cómputo y memoria suficiente para soportar la caída de 1 o 2 nodos sin degrado.</li>
               <li><strong>Cálculo de Cores vs vCPU:</strong> Relación vCPU:pCore común entre 3:1 y 5:1 según el perfil de la carga.</li>
               <li><strong>vSAN Slack Space:</strong> Mantener un 10-20% de espacio libre reservado para tareas de balanceo y reconstrucción.</li>
@@ -602,51 +565,83 @@
     <p>&copy; 2026 Referencia Técnica VMware VCF / VVF - Alojado en GitHub Pages</p>
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const inputServers = document.getElementById('num-servers');
-      const inputSockets = document.getElementById('num-sockets');
-      const inputCores = document.getElementById('num-cores');
+  <!-- SCRIPT INTERACTIVO CALCULADORA DE LICENCIAMIENTO -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputServers = document.getElementById('num-servers');
+    const inputSockets = document.getElementById('num-sockets');
+    const inputCores = document.getElementById('num-cores');
 
-      const resPhysicalCores = document.getElementById('res-physical-cores');
-      const resLicensedCores = document.getElementById('res-licensed-cores');
-      const resRuleNote = document.getElementById('res-rule-note');
-      const resVsanVvf = document.getElementById('res-vsan-vvf');
-      const resVsanVcf = document.getElementById('res-vsan-vcf');
+    const resPhysicalCores = document.getElementById('res-physical-cores');
+    const resLicensedCores = document.getElementById('res-licensed-cores');
+    const resRuleNote = document.getElementById('res-rule-note');
+    const resVsanVvf = document.getElementById('res-vsan-vvf');
+    const resVsanVcf = document.getElementById('res-vsan-vcf');
 
-      function calculateLicensing() {
-        const servers = Math.max(1, parseInt(inputServers.value) || 0);
-        const sockets = Math.max(1, parseInt(inputSockets.value) || 0);
-        const coresPerSocket = Math.max(1, parseInt(inputCores.value) || 0);
+    function calculateLicensing() {
+      const servers = Math.max(1, parseInt(inputServers.value) || 0);
+      const sockets = Math.max(1, parseInt(inputSockets.value) || 0);
+      const coresPerSocket = Math.max(1, parseInt(inputCores.value) || 0);
 
-        const totalPhysicalCores = servers * sockets * coresPerSocket;
-        const effectiveCoresPerSocket = Math.max(16, coresPerSocket);
-        const totalLicensedCores = servers * sockets * effectiveCoresPerSocket;
+      // Cores físicos reales
+      const totalPhysicalCores = servers * sockets * coresPerSocket;
 
-        const vsanVvfGiB = totalLicensedCores * 100;
-        const vsanVvfTiB = (vsanVvfGiB / 1024).toFixed(1);
+      // Regla de mínimo 16 cores por socket
+      const effectiveCoresPerSocket = Math.max(16, coresPerSocket);
+      const totalLicensedCores = servers * sockets * effectiveCoresPerSocket;
+      // Mínimo comercial de venta: 72 cores
+      const coresForSale = Math.max(72, totalLicensedCores);
 
-        resPhysicalCores.textContent = totalPhysicalCores.toLocaleString();
-        resLicensedCores.textContent = totalLicensedCores.toLocaleString();
-        
-        if (coresPerSocket < 16) {
-          resRuleNote.textContent = `Aplica regla mín. 16 cores/socket (ajustado de ${coresPerSocket} a 16)`;
-          resRuleNote.style.color = '#eab308';
-        } else {
-          resRuleNote.textContent = 'Cumple con el mínimo de 16 cores por socket';
-          resRuleNote.style.color = 'var(--text-muted)';
-        }
+      // ==========================================
+      // CÁLCULO DE vSAN VVF
+      // 0.25 TiB por core licenciado
+      // ==========================================
+      const vsanVvfTiB = totalLicensedCores * 0.25;
 
-        resVsanVvf.textContent = `${vsanVvfTiB} TiB`;
-        resVsanVcf.textContent = `${totalLicensedCores.toLocaleString()} TiB`;
+      // ==========================================
+      // CÁLCULO DE vSAN VCF
+      // 1 TiB por core licenciado
+      // ==========================================
+      const vsanVcfTiB = totalLicensedCores;
+
+      // Actualización en DOM
+      resPhysicalCores.textContent =
+        totalPhysicalCores.toLocaleString();
+
+      resLicensedCores.textContent =
+        totalLicensedCores.toLocaleString();
+      
+      resLicensedCores.textContent = 
+        coresForSale.toLocaleString();
+
+      if (coresPerSocket < 16) {
+        resRuleNote.textContent =
+          `Aplica regla mín. 16 cores/socket (ajustado de ${coresPerSocket} a 16)`;
+
+        resRuleNote.style.color = '#eab308';
+      } else {
+        resRuleNote.textContent =
+          'Cumple con el mínimo de 16 cores por socket';
+
+        resRuleNote.style.color = 'var(--text-muted)';
       }
 
-      inputServers.addEventListener('input', calculateLicensing);
-      inputSockets.addEventListener('input', calculateLicensing);
-      inputCores.addEventListener('input', calculateLicensing);
+      // Mostrar VVF
+      resVsanVvf.textContent =
+        `${vsanVvfTiB.toFixed(1)} TiB`;
 
-      calculateLicensing();
-    });
-  </script>
+      // Mostrar VCF
+      resVsanVcf.textContent =
+        `${vsanVcfTiB.toLocaleString()} TiB`;
+    }
+
+    inputServers.addEventListener('input', calculateLicensing);
+    inputSockets.addEventListener('input', calculateLicensing);
+    inputCores.addEventListener('input', calculateLicensing);
+
+    // Ejecución inicial
+    calculateLicensing();
+  });
+</script>
 </body>
 </html>
