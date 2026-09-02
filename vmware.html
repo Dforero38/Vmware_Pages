@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VMware Cloud Foundation 9.1 | Licenciamiento, Arquitectura y Sizing</title>
+  <style>
+    :root {
+      --primary-color: #0072ce;
+      --secondary-color: #0f172a;
+      --accent-color: #2563eb;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --badge-vcf: #0284c7;
+      --badge-vvf: #0d9488;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Menú Superior Global */
+    .top-nav {
+      background-color: var(--secondary-color);
+      padding: 0.75rem 2rem;
+    }
+
+    .top-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .top-nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .top-nav a:hover, .top-nav a.active {
+      color: #ffffff;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0284c7, var(--primary-color));
+      color: white;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .version-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Layout principal */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
+
+    /* Navegación lateral */
+    nav.side-nav {
+      position: sticky;
+      top: 2rem;
+      height: fit-content;
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    nav.side-nav h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    nav.side-nav ul {
+      list-style: none;
+    }
+
+    nav.side-nav li {
+      margin-bottom: 0.75rem;
+    }
+
+    nav.side-nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      display: block;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    nav.side-nav a:hover {
+      background: #e0f2fe;
+      color: var(--primary-color);
+    }
+
+    /* Contenido */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card h2 {
+      color: var(--secondary-color);
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+
+    .card h3 {
+      color: var(--primary-color);
+      margin: 1.2rem 0 0.5rem 0;
+    }
+
+    /* Estilos de la Calculadora */
+    .calculator-container {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+    }
+
+    .form-group input {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 114, 206, 0.15);
+    }
+
+    .calc-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      background: #ffffff;
+      padding: 1.2rem;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+    }
+
+    .res-box {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .res-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .res-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .res-subtext {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Tablas */
+    .table-responsive {
+      overflow-x: auto;
+      margin: 1.2rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: #f8fafc;
+      color: var(--secondary-color);
+      font-weight: 600;
+    }
+
+    td.check {
+      color: #16a34a;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    td.cross {
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    /* Callouts */
+    .callout {
+      background-color: #eff6ff;
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout-title {
+      font-weight: 600;
+      color: var(--secondary-color);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Badges */
+    .badge-vcf {
+      background: var(--badge-vcf);
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .badge-vvf {
+      background: var(--badge-vvf);
+      color: white;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    /* Grid de requisitos */
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .req-box {
+      background: #f8fafc;
+      padding: 1.2rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
+    .req-box h4 {
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    ul.req-list {
+      padding-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    ul.req-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      margin-top: auto;
+    }
+
+    /* Responsivo */
+    @media (max-width: 850px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      nav.side-nav {
+        position: relative;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación Principal -->
+  <nav class="top-nav">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html">Mis Proyectos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+      <li><a href="vmware.html" class="active">VMware</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>VMware Cloud & Datacenter Solutions</h1>
+    <p>Licenciamiento por Cores, Arquitectura, Sizing y Calculadora de Suscripciones (VCF vs VVF)</p>
+    <span class="version-tag">Broadcom Reference Architecture</span>
+  </header>
+
+  <div class="container">
+    <!-- Submenú lateral interno de VMware -->
+    <nav class="side-nav">
+      <h3>Secciones VMware</h3>
+      <ul>
+        <li><a href="#licenciamiento">Modelo de Licenciamiento</a></li>
+        <li><a href="#calculadora">Calculadora Interactiva</a></li>
+        <li><a href="#ofertas">Tipos de Licenciamiento</a></li>
+        <li><a href="#comparativa">Matriz Comparativa</a></li>
+        <li><a href="#arquitectura">Arquitectura VCF/VVF</a></li>
+        <li><a href="#sizing-requisitos">Sizing y Requisitos</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <!-- SECCIÓN 1: MODELO DE LICENCIAMIENTO -->
+      <section id="licenciamiento" class="card">
+        <h2>¿Cómo se Licencia VMware?</h2>
+        <p>El portafolio de VMware opera bajo un <strong>modelo de suscripción basado en Cores</strong>. Se eliminan las licencias perpetuas y el modelo por socket tradicional.</p>
+        
+        <div class="callout">
+          <div class="callout-title">Regla de Cálculo de Cores</div>
+          <p>Se requiere cotizar el total de cores físicos del servidor con un <strong>mínimo obligatorio de 16 cores por procesador (Socket)</strong>.</p>
+        </div>
+
+        <h3>Fórmula básica de cálculo:</h3>
+        <p><code>Cores por Servidor = Sockets × Máx(Cores Físicos por Socket, 16)</code></p>
+        <p><code>Cores Totales a Licenciar = Servidores × Cores por Servidor</code></p>
+      </section>
+
+      <!-- SECCIÓN 2: CALCULADORA INTERACTIVA -->
+      <section id="calculadora" class="card">
+        <h2>Calculadora de Licenciamiento por Cores</h2>
+        <p>Ingresa la topología de hardware de tu infraestructura para obtener la cantidad exacta de cores a licenciar y el almacenamiento vSAN asignado según el esquema VCF o VVF.</p>
+
+        <div class="calculator-container">
+          <div class="calc-grid">
+            <div class="form-group">
+              <label for="num-servers">Cantidad de Servidores (Hosts):</label>
+              <input type="number" id="num-servers" value="4" min="1" step="1">
+            </div>
+
+            <div class="form-group">
+              <label for="num-sockets">Sockets por Servidor:</label>
+              <input type="number" id="num-sockets" value="2" min="1" step="1">
+            </div>
+
+            <div class="form-group">
+              <label for="num-cores">Cores por Socket:</label>
+              <input type="number" id="num-cores" value="12" min="1" step="1">
+            </div>
+          </div>
+
+          <div class="calc-results">
+            <div class="res-box">
+              <span class="res-label">Cores Físicos Totales</span>
+              <span class="res-value" id="res-physical-cores">96</span>
+              <span class="res-subtext">Cores reales en hardware</span>
+            </div>
+
+            <div class="res-box">
+              <span class="res-label">Cores a Licenciar</span>
+              <span class="res-value" id="res-licensed-cores" style="color: #0284c7;">128</span>
+              <span class="res-subtext" id="res-rule-note">Aplica regla min. 16 cores/socket</span>
+            </div>
+
+            <div class="res-box">
+              <span class="res-label">Almacenamiento vSAN (VVF)</span>
+              <span class="res-value" id="res-vsan-vvf" style="color: #0d9488;">12.5 TiB</span>
+              <span class="res-subtext">Incluido (100 GiB / core)</span>
+            </div>
+
+            <div class="res-box">
+              <span class="res-label">Almacenamiento vSAN (VCF)</span>
+              <span class="res-value" id="res-vsan-vcf" style="color: #2563eb;">128 TiB</span>
+              <span class="res-subtext">Incluido Enterprise (1 TiB / core)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: TIPOS DE LICENCIAMIENTO -->
+      <section id="ofertas" class="card">
+        <h2>Los 2 Tipos Principales de Licenciamiento</h2>
+        <p>Broadcom consolida la oferta de virtualización de centros de datos en dos soluciones integradas principales:</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          <div style="background: #f0f9ff; padding: 1.5rem; border-radius: 6px; border: 1px solid #bae6fd;">
+            <span class="badge-vvf">VVF</span>
+            <h3 style="margin-top: 0.5rem; color: var(--secondary-color);">VMware vSphere Foundation</h3>
+            <p><strong>Enfoque:</strong> Solución de virtualización de cómputo para centros de datos tradicionales que requieren gestión centralizada y operaciones básicas.</p>
+            <ul style="margin-top: 0.8rem; padding-left: 1.25rem;">
+              <li>vSphere Enterprise Plus</li>
+              <li>vCenter Server Standard</li>
+              <li>Aria Operations & Aria Operations for Logs</li>
+              <li>Derecho a vSAN (100 GiB por core suscrito)</li>
+            </ul>
+          </div>
+
+          <div style="background: #eff6ff; padding: 1.5rem; border-radius: 6px; border: 1px solid #bfdbfe;">
+            <span class="badge-vcf">VCF</span>
+            <h3 style="margin-top: 0.5rem; color: var(--secondary-color);">VMware Cloud Foundation</h3>
+            <p><strong>Enfoque:</strong> Plataforma completa de Software-Defined Data Center (SDDC) para nube privada e híbrida con automatización avanzada.</p>
+            <ul style="margin-top: 0.8rem; padding-left: 1.25rem;">
+              <li>Todo lo incluido en VVF</li>
+              <li>SDDC Manager (Orquestación LCM)</li>
+              <li>vSAN Enterprise (1 TiB por core suscrito)</li>
+              <li>NSX Enterprise / Advanced Network & Security</li>
+              <li>Aria Suite completo & Tanzu Kubernetes Grid</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 4: MATRIZ COMPARATIVA -->
+      <section id="comparativa" class="card">
+        <h2>Matriz Comparativa de Funcionalidades</h2>
+        <p>Resumen funcional acorde a las guías de comparación de ediciones de VMware:</p>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Componente / Característica</th>
+                <th style="text-align: center;">vSphere Foundation (VVF)</th>
+                <th style="text-align: center;">Cloud Foundation (VCF)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>vSphere Enterprise Plus & vCenter</strong></td>
+                <td class="check">✓</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td><strong>Almacenamiento vSAN Incluido</strong></td>
+                <td>100 GiB / Core</td>
+                <td>1 TiB / Core (Enterprise)</td>
+              </tr>
+              <tr>
+                <td><strong>Redes y Seguridad NSX</strong></td>
+                <td class="cross">Opcional (Add-on)</td>
+                <td class="check">✓ Integrado</td>
+              </tr>
+              <tr>
+                <td><strong>SDDC Manager (Gestión de Flota)</strong></td>
+                <td class="cross">✕</td>
+                <td class="check">✓</td>
+              </tr>
+              <tr>
+                <td><strong>Aria Operations / Logs</strong></td>
+                <td class="check">✓ (Básico)</td>
+                <td class="check">✓ (Suite Completo)</td>
+              </tr>
+              <tr>
+                <td><strong>Tanzu Kubernetes Grid (TKG)</strong></td>
+                <td class="check">✓ (Básico)</td>
+                <td class="check">✓ (Avanzado)</td>
+              </tr>
+              <tr>
+                <td><strong>Orquestación de Nube Privada</strong></td>
+                <td class="cross">✕</td>
+                <td class="check">✓</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 5: ARQUITECTURA -->
+      <section id="arquitectura" class="card">
+        <h2>Arquitectura de Despliegue</h2>
+        <p>VCF organiza la infraestructura mediante la separación clara de planos de control y cargas de negocio:</p>
+
+        <h3>1. Management Domain</h3>
+        <p>Clúster inicial dedicado exclusivamente a los componentes de administración del SDDC (vCenter, SDDC Manager, clúster de NSX Manager, Aria Operations).</p>
+
+        <h3>2. VI Workload Domains (Virtual Infrastructure)</h3>
+        <p>Clústeres secundarios dedicados a alojar las aplicaciones finales de negocio, aislados operacionalmente del dominio de gestión.</p>
+      </section>
+
+      <!-- SECCIÓN 6: SIZING Y REQUISITOS -->
+      <section id="sizing-requisitos" class="card">
+        <h2>Sizing y Requisitos Mínimos</h2>
+
+        <div class="req-grid">
+          <div class="req-box">
+            <h4>Requisitos para Management Domain (VCF)</h4>
+            <ul class="req-list">
+              <li><strong>Mínimo de Nodos:</strong> 4 hosts ESXi dedicados.</li>
+              <li><strong>RAM por Host:</strong> Mínimo 256 GB (512 GB recomendado).</li>
+              <li><strong>Red:</strong> Mínimo 2 puertos de 10GbE / 25GbE por host.</li>
+              <li><strong>Almacenamiento:</strong> vSAN recomendado para el dominio de gestión.</li>
+            </ul>
+          </div>
+
+          <div class="req-box">
+            <h4>Criterios de Sizing para Cargas</h4>
+            <ul class="req-list">
+              <li><strong>Factor N+1 / N+2:</strong> Reservar capacidad de cómputo y memoria suficiente para soportar la caída de 1 o 2 nodos sin degrado.</li>
+              <li><strong>Cálculo de Cores vs vCPU:</strong> Relación vCPU:pCore común entre 3:1 y 5:1 según el perfil de la carga.</li>
+              <li><strong>vSAN Slack Space:</strong> Mantener un 10-20% de espacio libre reservado para tareas de balanceo y reconstrucción.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Referencia Técnica VMware VCF / VVF - Alojado en GitHub Pages</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputServers = document.getElementById('num-servers');
+      const inputSockets = document.getElementById('num-sockets');
+      const inputCores = document.getElementById('num-cores');
+
+      const resPhysicalCores = document.getElementById('res-physical-cores');
+      const resLicensedCores = document.getElementById('res-licensed-cores');
+      const resRuleNote = document.getElementById('res-rule-note');
+      const resVsanVvf = document.getElementById('res-vsan-vvf');
+      const resVsanVcf = document.getElementById('res-vsan-vcf');
+
+      function calculateLicensing() {
+        const servers = Math.max(1, parseInt(inputServers.value) || 0);
+        const sockets = Math.max(1, parseInt(inputSockets.value) || 0);
+        const coresPerSocket = Math.max(1, parseInt(inputCores.value) || 0);
+
+        const totalPhysicalCores = servers * sockets * coresPerSocket;
+        const effectiveCoresPerSocket = Math.max(16, coresPerSocket);
+        const totalLicensedCores = servers * sockets * effectiveCoresPerSocket;
+
+        const vsanVvfGiB = totalLicensedCores * 100;
+        const vsanVvfTiB = (vsanVvfGiB / 1024).toFixed(1);
+
+        resPhysicalCores.textContent = totalPhysicalCores.toLocaleString();
+        resLicensedCores.textContent = totalLicensedCores.toLocaleString();
+        
+        if (coresPerSocket < 16) {
+          resRuleNote.textContent = `Aplica regla mín. 16 cores/socket (ajustado de ${coresPerSocket} a 16)`;
+          resRuleNote.style.color = '#eab308';
+        } else {
+          resRuleNote.textContent = 'Cumple con el mínimo de 16 cores por socket';
+          resRuleNote.style.color = 'var(--text-muted)';
+        }
+
+        resVsanVvf.textContent = `${vsanVvfTiB} TiB`;
+        resVsanVcf.textContent = `${totalLicensedCores.toLocaleString()} TiB`;
+      }
+
+      inputServers.addEventListener('input', calculateLicensing);
+      inputSockets.addEventListener('input', calculateLicensing);
+      inputCores.addEventListener('input', calculateLicensing);
+
+      calculateLicensing();
+    });
+  </script>
+</body>
+</html>
