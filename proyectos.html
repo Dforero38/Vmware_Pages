@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyectos | Portal Técnico & Arquitectura Cloud</title>
+  <style>
+    :root {
+      --primary-color: #00008B; /* Azul Principal */
+      --secondary-color: #0f172a; /* Slate Oscuro */
+      --accent-color: #2563eb;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --badge-vcf: #0284c7;
+      --badge-vvf: #0d9488;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Verdana', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Menú Superior Global */
+    .top-nav {
+      background-color: var(--secondary-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .top-nav ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    .top-nav li {
+      margin: 0;
+    }
+
+    .top-nav a {
+      display: block;
+      padding: 1rem 1.5rem;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .top-nav a:hover,
+    .top-nav a.active {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .top-nav a.active {
+      border-bottom: 3px solid var(--badge-vcf);
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0284c7, var(--primary-color));
+      color: white;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .subtitle-tag {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Layout principal */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2rem;
+    }
+
+    /* Navegación lateral de subpáginas */
+    .side-nav {
+      position: sticky;
+      top: 4.5rem;
+      height: fit-content;
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .side-nav h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .side-nav ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .side-nav li {
+      margin-bottom: 0.5rem;
+    }
+
+    .side-nav button {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .side-nav button:hover {
+      background: #e0f2fe;
+      color: var(--primary-color);
+    }
+
+    .side-nav button.active-subtab {
+      background: var(--primary-color);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Estructura de Subpáginas */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .subpage-content {
+      display: none; /* Oculto por defecto */
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .subpage-content.active {
+      display: block; /* Visible al seleccionarse */
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+    }
+
+    .card h2 {
+      color: var(--secondary-color);
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+
+    .card h3 {
+      color: var(--primary-color);
+      margin: 1rem 0 0.5rem 0;
+    }
+
+    /* Grids de Proyectos */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .project-card {
+      background: #f8fafc;
+      padding: 1.25rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card h4 {
+      color: var(--secondary-color);
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: auto;
+    }
+
+    .tag {
+      background: #e2e8f0;
+      color: var(--secondary-color);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      margin-top: auto;
+    }
+
+    /* Responsivo */
+    @media (max-width: 850px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .side-nav {
+        position: relative;
+        top: 0;
+      }
+
+      .top-nav a {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menú Superior Global -->
+  <nav class="top-nav">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="sobre-mi.html">Sobre mí</a></li>
+      <li><a href="proyectos.html" class="active">Proyectos</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+      <li><a href="vmware.html">VMware</a></li>
+    </ul>
+  </nav>
+
+  <header>
+    <h1>Casos de Uso & Proyectos</h1>
+    <p>Arquitectura, dimensionamiento y despliegue de infraestructura crítica</p>
+    <span class="subtitle-tag">Portfolio Técnico & Preventa</span>
+  </header>
+
+  <div class="container">
+    <!-- Navegación Lateral: Menú de Subpáginas de Proyectos -->
+    <nav class="side-nav">
+      <h3>Categorías / Subpáginas</h3>
+      <ul>
+        <li><button class="subtab-btn active-subtab" onclick="switchTab('todos')">Resumen General</button></li>
+        <li><button class="subtab-btn" onclick="switchTab('subpage-vcf')">1. Arquitecturas VCF / VVF</button></li>
+        <li><button class="subtab-btn" onclick="switchTab('subpage-redes')">2. Redes & Monitoreo</button></li>
+        <li><button class="subtab-btn" onclick="switchTab('subpage-euc')">3. Digital Workspace (VDI)</button></li>
+        <li><button class="subtab-btn" onclick="switchTab('subpage-scripting')">4. Scripting & Auditorías</button></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <!-- SUBPÁGINA 0: RESUMEN GENERAL (Todos los proyectos) -->
+      <div id="todos" class="subpage-content active">
+        <section class="card">
+          <h2>Catálogo de Proyectos Destacados</h2>
+          <p>Selecciona una subpágina específica en el menú lateral para profundizar en la arquitectura, metodología y resultados de cada solución.</p>
+          
+          <div class="grid-2">
+            <div class="project-card">
+              <h4>Modernización de Datacenter a VCF 9</h4>
+              <p>Diseño e implementación de Workload Domains, sizing por cores y migración desde VMware vSphere 8.</p>
+              <div class="tag-container">
+                <span class="tag">VMware VCF</span>
+                <span class="tag">vSAN</span>
+                <span class="tag">SDDC</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h4>Monitoreo de Red & NDR Empresarial</h4>
+              <p>Despliegue de visibilidad completa del tráfico de red y detección proactiva de amenazas.</p>
+              <div class="tag-container">
+                <span class="tag">Arista CloudVision</span>
+                <span class="tag">NDR</span>
+                <span class="tag">DMF</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h4>Plataforma Virtual Workspace (VDI)</h4>
+              <p>Virtualización de escritorios corporativos y gestión unificada de dispositivos finales.</p>
+              <div class="tag-container">
+                <span class="tag">Omnissa Horizon 8</span>
+                <span class="tag">Workspace ONE</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h4>Scripting de Inventarios & Sizing</h4>
+              <p>Automatización en PowerShell/PowerCLI para auditoría de licenciamiento y recolección de cores.</p>
+              <div class="tag-container">
+                <span class="tag">PowerCLI</span>
+                <span class="tag">PowerShell</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- SUBPÁGINA 1: ARQUITECTURA VCF / VVF -->
+      <div id="subpage-vcf" class="subpage-content">
+        <section class="card">
+          <h2>Subpágina: Arquitecturas VCF / VVF</h2>
+          <p>Proyectos enfocados en la transición de licenciamiento tradicional por socket hacia esquemas suscritos por cores bajo Broadcom VMware Cloud Foundation y vSphere Foundation.</p>
+
+          <h3>Proyecto Destacado: Migración de Clústeres Core</h3>
+          <ul style="padding-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+            <li><strong>Desafío:</strong> Optimizar la infraestructura existente ante la fecha límite de soporte de VMware 8 (Octubre 2027).</li>
+            <li><strong>Solución:</strong> Levantamiento de métricas N+1 con scripts personalizados, cálculo de Slack Space en vSAN y estructuración de dominios de gestión (Management Domain) y de carga útil (VI Workload Domains).</li>
+            <li><strong>Resultado:</strong> Consolidación del ratio pCore:vCPU y optimización en la cantidad total de licencias por núcleo requeridas.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- SUBPÁGINA 2: REDES & MONITOREO -->
+      <div id="subpage-redes" class="subpage-content">
+        <section class="card">
+          <h2>Subpágina: Redes, Visibilidad & Security NDR</h2>
+          <p>Casos de éxito enfocados en la arquitectura de red para centros de datos modernos, seguridad perimetral e inspección de tráfico.</p>
+
+          <h3>Proyecto Destacado: Implementación Arista & CloudVision</h3>
+          <ul style="padding-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+            <li><strong>Alcance:</strong> Integración de Arista CloudVision con DANZ Monitoring Fabric (DMF) para agregación de taps de red.</li>
+            <li><strong>Enfoque Preventa:</strong> Pruebas de concepto (PoC) para demostrar detección de anomalías con Arista NDR en tiempo real.</li>
+            <li><strong>Beneficio:</strong> Visibilidad completa capa 2 a capa 7 sin generar sobrecarga en los switches core de producción.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- SUBPÁGINA 3: DIGITAL WORKSPACE -->
+      <div id="subpage-euc" class="subpage-content">
+        <section class="card">
+          <h2>Subpágina: Digital Workspace & Escritorios Virtuales</h2>
+          <p>Implementación de plataformas de trabajo remoto seguro y movilidad corporativa.</p>
+
+          <h3>Proyecto Destacado: Despliegue Empresarial Horizon & UEM</h3>
+          <ul style="padding-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+            <li><strong>Plataforma:</strong> Omnissa Horizon 8 combinado con Workspace ONE UEM.</li>
+            <li><strong>Arquitectura:</strong> Configuración de Unified Access Gateways (UAG) en esquemas de alta disponibilidad y perfilamiento dinámico de usuarios.</li>
+            <li><strong>Impacto:</strong> Aprovisionamiento centralizado de escritorios para usuarios concurrentes con acceso seguro desde cualquier dispositivo.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- SUBPÁGINA 4: SCRIPTING & AUDITORÍAS -->
+      <div id="subpage-scripting" class="subpage-content">
+        <section class="card">
+          <h2>Subpágina: Automatización & Auditoría de Infraestructura</h2>
+          <p>Herramientas y scripts propios desarrollados para auditorías de capacidad y evaluación de requerimientos de licenciamiento.</p>
+
+          <h3>Proyecto Destacado: Tooling FoundationCoreAndTiBUsage</h3>
+          <ul style="padding-left: 1.25rem; margin-top: 0.5rem; margin-bottom: 1rem;">
+            <li><strong>Lenguajes:</strong> PowerShell / VMware PowerCLI.</li>
+            <li><strong>Función:</strong> Extracción automatizada de inventario en vCenter Server para auditar la relación de cores físicos activos por Host vs. TiBs de almacenamiento vSAN consumidos.</li>
+            <li><strong>Uso:</strong> Diagnóstico preventa inmediato para elaborar propuestas comerciales exactas sin margen de error en licenciamiento.</li>
+          </ul>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Referencia Técnica & Perfil Profesional - Alojado en GitHub Pages</p>
+  </footer>
+
+  <!-- Script JS sencillo para controlar el cambio de subpáginas dinámicamente -->
+  <script>
+    function switchTab(tabId) {
+      // 1. Ocultar todos los contenidos de subpáginas
+      const contents = document.querySelectorAll('.subpage-content');
+      contents.forEach(content => content.classList.remove('active'));
+
+      // 2. Remover la clase activa de todos los botones del menú lateral
+      const buttons = document.querySelectorAll('.subtab-btn');
+      buttons.forEach(btn => btn.classList.remove('active-subtab'));
+
+      // 3. Mostrar la subpágina seleccionada
+      const targetContent = document.getElementById(tabId);
+      if (targetContent) {
+        targetContent.classList.add('active');
+      }
+
+      // 4. Marcar el botón presionado como activo
+      event.currentTarget.classList.add('active-subtab');
+    }
+  </script>
+
+</body>
+</html>
